@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Report Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Last Week's Progress</h1>
+        <p>Now that I have connected to the battery, I have been trying to collect reports from it. I have been focusing on <strong>report 3</strong> (Basic information <code>0x03</code> command). One of the first challenges I encountered was calculating the checksum. The engineering document provided example commands and responses, which I used as reference.</p>
+        
+        <h2>Checksum Calculation</h2>
+        <p>Per the document, a send command looks like:</p>
+        <pre>DD A5 03 00 FF FD 77</pre>
+        <p>
+            <strong>Breakdown:</strong><br>
+            DD - Header to send <br>
+            A5 - Read command <br>
+            03 - Actual report <br>
+            00 - Size of payload <br>
+            FF, FD - Checksums <br>
+            77 - Stop bit <br>
+        </p>
+        
+        <p>The biggest challenge I faced was correctly calculating the checksums. The document states that the checksum is the sum of all bytes (excluding the command type and checksum bytes), then inverted and incremented by 1.</p>
+        <p>The process involved:</p>
+        <ol>
+            <li>Summing up all the required values.</li>
+            <li>Flipping the bits (bitwise NOT operation).</li>
+            <li>Adding 1 to get the final high and low checksum bytes.</li>
+        </ol>
+        
+        <p>After working through the checksum, I realized that command 03 always has the same checksum, but it is important to review the returned data for accuracy.</p>
+        
+        <h2>Receiving Data</h2>
+        <p>After sending command 03 to the battery, I received fragmented responses, such as:</p>
+        <pre>
+Raw Received Data (Hex):
+dd0300220534000034e23a980001306200000000
+0000665a0304010b6b0000003a9834e20000fa04
+77</pre>
+        
+        <p>According to the document:</p>
+        <ul>
+            <li><code>dd 03 00 22</code> (00 is error code) and 22 is the length.</li>
+        </ul>
+        
+        <p>When combined, the full response looked like:</p>
+        <pre>dd0300220534000034e23a9800013062000000000000665a0304010b6b0000003a9834e20000fa0477</pre>
+        
+        <p>From this response (big-endian format), I extracted the first meaningful data points:</p>
+        <ul>
+            <li><strong>Voltage:</strong> 13V</li>
+            <li><strong>Current:</strong> 0A</li>
+            <li><strong>Remaining Capacity:</strong> 135 Ah</li>
+            <li><strong>Nominal Capacity:</strong> 150 Ah</li>
+        </ul>
+        
+        <h2>Challenges Faced</h2>
+        <p>
+            <strong>Checksum Calculation:</strong> It was much harder than expected. Many online blogs helped, but implementing it in code was still a challenge.<br>
+            <strong>Data Parsing:</strong> I need to create a proper parsing function and store this information in the core database we have been working with.
+        </p>
+        
+        <h2>Next Steps</h2>
+        <p>
+            I plan to work on data parsing for other sections of report 03. I also noticed that in report FA, the units for the results in 03 are defined there. For now, I used the default unit, and it seemed correct for this battery model.
+        </p>
+    </div>
+</body>
+</html>
