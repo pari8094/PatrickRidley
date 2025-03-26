@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Progress Report</h1>
+
+        <h2>Last Week</h2>
+        <p>
+            I worked on the project proposal and took some time to assess my progress. 
+            I realized that I have covered a lot of ground on the programming side, with a focus on finding the best 
+            way to gather data from the battery without draining the phone battery. I decided to implement a scheduled 
+            polling system, setting it to run every 15 minutes. However, if the app is opened, it will poll immediately 
+            on startup, similar to accessing the dashboard view.
+        </p>
+
+        <h2>Challenges Faced</h2>
+        <p>
+            I find myself held up due to a lack of UI guidance. I’m getting a better sense of what Windfall does not want,
+            but I still need more clarity on what they do want. I pushed a TestFlight deployment for them to review and am
+            currently waiting for more feedback.  I did point out where it is buggy, and ask them not to focus on that.
+        </p>
+
+        <h2>Next Steps</h2>
+        <p>
+            I hope to receive logos to incorporate into the project, especially so Shrey can work more on the frontend. Along
+            that path, I going to show them Figma (tool I used in a different class) to help them guide us on the design.
+            I plan to continue tinkering with Bluetooth and scheduling data collection. Additionally, I want to implement
+            auto-polling for a quick report when the page is accessed.
+        </p>
+        <p>
+            I’d also like to explore adding a nickname for each battery, rather than displaying a truncated UUID. While this
+            is not part of the MVP, I want to keep it in mind while coding so it can be implemented later.
+        </p>
+
+        <h2>Reflection:</h2>
+        <p>
+
+            Bluetooth development is proving to be more challenging than I expected. A poll request can fail if it is not
+            executed in the correct order or if a process has timed out. I’m currently researching ways to handle these failures in code.
+        </p>
+        <p>
+            Right now, my data collectors are running frequently enough that I haven’t encountered this issue often, but I know
+            it will become more relevant as I refine the system. There’s still a lot to learn, and I will need to continue
+            researching and experimenting to improve the reliability of the polling process.
+        </p>
+    </div>
+
+    <section>
+        <a href="index.html">Back to Home</a> <!-- Link to return to the main page -->
+    </section>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Progress Report</h1>
+
+        <h2>Last Week</h2>
+        <p>
+            I did a lot of cleanup on my Bluetooth scripting and began integrating a parsing utility.  
+            I can now collect Report 03 and extract MVP-related data, storing it in the database.  
+            This allows me to create a time series dataset that Shrey can use to generate graphs.  
+            Currently, I am adding values at 5-second intervals to generate data sets.
+        </p>
+
+        <h2>Challenges Faced</h2>
+        <p>
+            One of the biggest challenges was storing data and correctly passing it between functions while maintaining the correct variable type.  
+            It took some effort, but I aligned each type properly to prevent build failures.  
+            Xcode has some great tools for catching these issues, but I still had to do additional research to resolve them effectively.
+        </p>
+
+        <h2>Next Steps</h2>
+        <p>
+            I need to streamline how I collect data. There are many suggested methods online,  
+            but currently, I am polling the battery too aggressively, which consumes a lot of power.  
+            My next step is to find a more efficient method to reduce power consumption while still gathering the necessary data.
+        </p>
+    </div>
+
+    <section>
+        <a href="index.html">Back to Home</a> <!-- Link to return to the main page -->
+    </section>
+</body>
+</html>
